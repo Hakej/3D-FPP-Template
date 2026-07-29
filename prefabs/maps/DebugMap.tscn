@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cgnp38cr015yt"]
+
+[ext_resource type="PackedScene" uid="uid://d1nnvtwfjseoa" path="res://models/DebugMap.blend" id="1_op6ri"]
+
+[node name="DebugMap" type="Node3D" unique_id=871970800]
+
+[node name="DebugMap" parent="." unique_id=1797752385 instance=ExtResource("1_op6ri")]

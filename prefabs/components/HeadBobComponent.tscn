@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dawjai5nsf0iy"]
+
+[ext_resource type="Script" uid="uid://bsdcs7xb80rgn" path="res://prefabs/components/HeadBobComponent.gd" id="1_mq5b4"]
+
+[node name="HeadBobComponent" type="Node3D" unique_id=1700840675]
+script = ExtResource("1_mq5b4")

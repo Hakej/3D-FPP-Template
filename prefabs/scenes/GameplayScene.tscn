@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dvxt4pm66qrq8"]
+
+[ext_resource type="PackedScene" uid="uid://b70bt3tf874yi" path="res://prefabs/nodes/Player.tscn" id="1_wtp4v"]
+[ext_resource type="PackedScene" uid="uid://cgnp38cr015yt" path="res://prefabs/maps/DebugMap.tscn" id="2_pwg47"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r2wdw"]
+
+[sub_resource type="Sky" id="Sky_pwg47"]
+sky_material = SubResource("ProceduralSkyMaterial_r2wdw")
+
+[sub_resource type="Environment" id="Environment_wtp4v"]
+background_mode = 2
+sky = SubResource("Sky_pwg47")
+ambient_light_energy = 0.0
+
+[node name="GameplayScene" type="Node3D" unique_id=173542713]
+
+[node name="Player" parent="." unique_id=1571387576 instance=ExtResource("1_wtp4v")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=743194437]
+environment = SubResource("Environment_wtp4v")
+
+[node name="DefaultMap" parent="." unique_id=871970800 instance=ExtResource("2_pwg47")]

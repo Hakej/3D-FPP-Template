@@ -1,0 +1,3 @@
+[submodule "addons/pathetic_console"]
+	path = addons/pathetic_console
+	url = https://github.com/Hakej/PatheticConsole.git

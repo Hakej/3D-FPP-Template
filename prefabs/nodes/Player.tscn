@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b70bt3tf874yi"]
+
+[ext_resource type="Script" uid="uid://dgkc32nkfqkyn" path="res://prefabs/nodes/Player.gd" id="1_8o7d0"]
+[ext_resource type="Script" uid="uid://brveelme18y8v" path="res://scripts/states/StateMachine.gd" id="2_xjy0k"]
+[ext_resource type="Script" uid="uid://b10o2xlkjlyr7" path="res://scripts/states/player/PlayerFallingState.gd" id="3_ac88a"]
+[ext_resource type="Script" uid="uid://b6cmstvq5x3p8" path="res://scripts/states/player/PlayerIdleState.gd" id="4_ecws4"]
+[ext_resource type="Script" uid="uid://dkow1mtv3sl8l" path="res://scripts/states/player/PlayerRunState.gd" id="5_wu3sy"]
+[ext_resource type="Script" uid="uid://ywevtf856krd" path="res://scripts/states/player/PlayerWalkState.gd" id="6_jn6uc"]
+[ext_resource type="PackedScene" uid="uid://dawjai5nsf0iy" path="res://prefabs/components/HeadBobComponent.tscn" id="7_ecws4"]
+[ext_resource type="PackedScene" uid="uid://m64qd6blk6va" path="res://prefabs/components/FootstepComponent.tscn" id="8_wu3sy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xjy0k"]
+radius = 0.3
+height = 1.7
+
+[node name="Player" type="CharacterBody3D" unique_id=794808378 node_paths=PackedStringArray("camera")]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_8o7d0")
+camera = NodePath("Camera3D")
+jump_velocity = 5.0
+gravity = 15.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=814030951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=678159921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_xjy0k")
+
+[node name="StateMachine" type="Node" parent="." unique_id=359948480 node_paths=PackedStringArray("default_state")]
+script = ExtResource("2_xjy0k")
+default_state = NodePath("PlayerIdleState")
+metadata/_custom_type_script = "uid://brveelme18y8v"
+
+[node name="PlayerIdleState" type="Node" parent="StateMachine" unique_id=1333420830 node_paths=PackedStringArray("player_walk_state", "player_falling_state")]
+script = ExtResource("4_ecws4")
+player_walk_state = NodePath("../PlayerWalkState")
+player_falling_state = NodePath("../PlayerFallingState")
+metadata/_custom_type_script = "uid://b6cmstvq5x3p8"
+
+[node name="PlayerWalkState" type="Node" parent="StateMachine" unique_id=1675714347 node_paths=PackedStringArray("player_idle_state", "player_run_state", "player_falling_state")]
+script = ExtResource("6_jn6uc")
+player_idle_state = NodePath("../PlayerIdleState")
+player_run_state = NodePath("../PlayerRunState")
+player_falling_state = NodePath("../PlayerFallingState")
+metadata/_custom_type_script = "uid://ywevtf856krd"
+
+[node name="PlayerRunState" type="Node" parent="StateMachine" unique_id=662350860 node_paths=PackedStringArray("player_idle_state", "player_walk_state", "player_falling_state")]
+script = ExtResource("5_wu3sy")
+player_idle_state = NodePath("../PlayerIdleState")
+player_walk_state = NodePath("../PlayerWalkState")
+player_falling_state = NodePath("../PlayerFallingState")
+metadata/_custom_type_script = "uid://dkow1mtv3sl8l"
+
+[node name="PlayerFallingState" type="Node" parent="StateMachine" unique_id=1248911518 node_paths=PackedStringArray("player_idle_state")]
+script = ExtResource("3_ac88a")
+player_idle_state = NodePath("../PlayerIdleState")
+metadata/_custom_type_script = "uid://b10o2xlkjlyr7"
+
+[node name="HeadBobComponent" parent="." unique_id=1700840675 node_paths=PackedStringArray("camera") instance=ExtResource("7_ecws4")]
+camera = NodePath("../Camera3D")
+bob_speed = 6.0
+bob_amount = 0.02
+
+[node name="FootstepComponent" parent="." unique_id=1541925569 instance=ExtResource("8_wu3sy")]
+
+[connection signal="step" from="HeadBobComponent" to="FootstepComponent" method="_on_head_bob_component_step"]

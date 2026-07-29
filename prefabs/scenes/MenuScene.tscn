@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://brd6re0074l28"]
+
+[ext_resource type="Script" uid="uid://c3ylwq5fj3nj0" path="res://prefabs/scenes/MenuScene.gd" id="1_oeiks"]
+
+[node name="MenuScene" type="Node3D" unique_id=122584594]
+script = ExtResource("1_oeiks")
+
+[node name="Control" type="Control" parent="." unique_id=1099273887]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1205444438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1719856592]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -33.0
+offset_right = 48.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGameButton" type="Button" parent="Control/VBoxContainer" unique_id=1416553256]
+layout_mode = 2
+text = "Start Game"
+
+[node name="ExitGameButton" type="Button" parent="Control/VBoxContainer" unique_id=8090598]
+layout_mode = 2
+text = "Exit Game"
+
+[connection signal="pressed" from="Control/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
